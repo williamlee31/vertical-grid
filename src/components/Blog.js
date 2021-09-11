@@ -6,8 +6,7 @@ class Blog extends Component {
     super(props);
 
     this.state = {
-      posts: [],
-      resizeFinished: false
+      posts: []
     }
   }
 
@@ -20,12 +19,10 @@ class Blog extends Component {
   }
   
   resizeAllPosts = () => {
-    this.setState({ resizeFinished: false })
     let allPosts = document.getElementsByClassName("post");
     for(let i = 0; i < allPosts.length; i++){
       this.resizePost(allPosts[i]);
     }
-    this.setState({ resizeFinished: true });
   }
 
   componentDidMount() {
@@ -39,6 +36,10 @@ class Blog extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.resizeAllPosts);
+  }
+
+  componentDidUpdate() {
+    this.resizeAllPosts();
   }
 
   render() {
